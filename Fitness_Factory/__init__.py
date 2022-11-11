@@ -10,7 +10,7 @@ DB_NAME = "database.db"
 def create_fitnessfactory_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'shastri web dev ca project'
-    app.config['SQLALCHEMY_DATABASE_URL'] = f'postgres://kjtqtxgfanclfu:4825a34ba4737ddebfe6b84402b908c925f8da413f08ae190ebdc9ff01990858@ec2-54-155-110-181.eu-west-1.compute.amazonaws.com:5432/d9jv9qo4dbpeia
+    app.config['DATABASE_URL'] = f'postgres://kjtqtxgfanclfu:4825a34ba4737ddebfe6b84402b908c925f8da413f08ae190ebdc9ff01990858@ec2-54-155-110-181.eu-west-1.compute.amazonaws.com:5432/d9jv9qo4dbpeia
     
     db.init_app(app)
 
