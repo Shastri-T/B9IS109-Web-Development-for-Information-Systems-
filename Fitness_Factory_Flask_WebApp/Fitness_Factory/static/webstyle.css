@@ -1,8 +1,14 @@
+h3{
+  margin-top:50px!important;
+  margin-right: 250px!important;
+  text-align: center!important;
+}
 .container, .container-lg, .container-md, .container-sm, .container-xl {
   max-width:100%!important;
  }
 
  .container {
+    margin-top:5px!important;
     z-index: 10;
     height: auto;
     width: auto;
@@ -10,6 +16,19 @@
     background: white;
     position: sticky;
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.45);
+    top: 0px;
+    text-align: center;
+  }
+
+  .containerbody {
+    margin-top:5px!important;
+    z-index: 10;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    background: white;
+    position: sticky;
+    /*box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.45);*/
     top: 0px;
     text-align: center;
   }
@@ -102,18 +121,18 @@
   }
 
   .btn:hover{
-    background-color: #7ddfb3!important;
+    background-color: #469e76!important;
     border-color: #000!important;
   }
 
   .btncancel:hover{
-    background-color: #7ddfb3!important;
+    background-color: #469e76!important;
     border-color: #000!important;
   }
 
   .btn{
     font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun!important;
-    background-color: #469e76!important;
+    background-color: #7ddfb3!important;
     color:black!important;
     font-weight: bold!important;
     width: 150px!important;
@@ -122,7 +141,7 @@
 
   .btncancel{
     font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun!important;
-    background-color: #469e76!important;
+    background-color: #7ddfb3!important;
     color:black!important;
     font-weight: bold!important;
     width: 150px!important;
@@ -161,6 +180,7 @@
 
   #productcatalog {
     background-color: white;
+    margin-left: 65px;
   }
 
   /* Font */
@@ -201,23 +221,19 @@
   }
 
   img {
-    height: auto;
+    height: 345px;
     max-width: 100%;
     vertical-align: middle;
   }
 
 
   .btn-grad {
-    /* background-image: linear-gradient(to right, #7ddfb3 0%, #7ddfb3  51%, #02AAB0  100%); */
-    background-image: linear-gradient(to right, #02AAB0 0%, #7ddfb3 51%, #02AAB0 100%);
-    /*margin: 10px;
-  padding: 15px 45px;  
-  text-transform: uppercase;*/
-
+    background-image:linear-gradient(to right, #1b1a1a 0%, #02AAB0 91%, #02AAB0  100%);
+    /*background-image: linear-gradient(to right, #02AAB0 0%, #7ddfb3 51%, #02AAB0 100%);*/
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
-    color: black;
+    color: white!important;
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
@@ -293,7 +309,7 @@
 
   @media (min-width: 56rem) {
     .cards_item {
-      width: 32.3333%;
+      width: 24.3333%;
       margin: 5px;
     }
 
@@ -315,19 +331,19 @@
   .card_content {
     /* From https://css.glass */
     /* From https://css.glass */
-    width: 60%;
+    /*width: 60%;*/
     backdrop-filter: blur(1px) saturate(158%);
     -webkit-backdrop-filter: blur(1px) saturate(158%);
-    background-color: rgba(0, 0, 0, 0.64);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    background-color:#7ddfb3 /*rgba(0, 0, 0, 0.64)*/;
+    border: 1px solid #7ddfb3 /*rgba(255, 255, 255, 0.125)*/;
 
     /*padding: 1rem;
   background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);*/
   }
 
   .card_title {
-    color: #ffffff;
-    font-size: 14px;
+    color: black;
+    font-size: 17px;
     font-weight: 400;
     letter-spacing: 1px;
     text-align: center;
@@ -336,7 +352,7 @@
 
   .card_text {
     color: #ffffff;
-    font-size: 0.875rem;
+    font-size: 1.1rem;
     line-height: 1.5;
     margin-bottom: 1.25rem;
     font-weight: 400;
@@ -344,16 +360,16 @@
   }
 
   .card_price {
-    color: #ffffff;
-    font-size: 0.875rem;
+    color: black;
+    font-size: 1.1rem;
     line-height: 1.5;
     font-weight: 400;
     text-align: center;
   }
 
   .card_review {
-    color: #ffffff;
-    font-size: 0.875rem;
+    color: black;
+    font-size: 1.1rem;
     line-height: 1.5;
     font-weight: 400;
     text-align: center;
@@ -418,7 +434,7 @@
 
   .search-button {
     position: absolute;
-    /*z-index: 5;*/
+    z-index: 5;
     right: 0;
     top: 0;
     width: 40px;
@@ -426,7 +442,7 @@
     background-color: #7ddfb3; /*#02AAB0;*/
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    background-image: url("../Media/search.png");
+    background-image: url("../static/search.png");
     background-position: center;
     background-size: 30px 30px;
     background-repeat: no-repeat;
@@ -503,7 +519,8 @@
 
   .rating5star {
     text-align: center;
-    color: orange;
+    color: orange;    
+    font-size:25px;
   }
 
   /* CSS for 4 star rating */
@@ -511,6 +528,7 @@
   .rating4star {
     text-align: center;
     color: white;
+    font-size:25px;
   }
 
   .rating4star>span:nth-child(n+0):nth-last-child(n+2) {
@@ -523,6 +541,7 @@
   .rating3star {
     text-align: center;
     color: white;
+    font-size:25px;
   }
 
   .rating3star>span:nth-child(n+0):nth-last-child(n+3) {
@@ -535,6 +554,7 @@
   .rating2star {
     text-align: center;
     color: white;
+    font-size:25px;
   }
 
   .rating2star>span:nth-child(n+0):nth-last-child(n+4) {
@@ -547,6 +567,7 @@
   .rating1star {
     text-align: center;
     color: white;
+    font-size:25px;
   }
 
   .rating1star>span:nth-child(n+0):nth-last-child(n+5) {
@@ -566,15 +587,14 @@
 
   #rating .tooltiptext {
     visibility: hidden;
-    background-color: #5ED2B2;
-    color: black;
+    background-color: #02AAB0  /*#5ED2B2*/;
+    color: white;
     text-align: center;
     border-radius: 6px;
-    padding: 2px 15px 2px 5px;
-    /*top, right, bottom, and left*/
+    padding: 5px 25px 12px 18px;
     position: absolute;
     z-index: 1;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   #rating:hover .tooltiptext {
@@ -885,11 +905,26 @@
     height: auto;
     width: auto;
     overflow: hidden;
-    margin-left: 40px;
+    margin-left: 100px;
     /*position: sticky;*/
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.45);
     top: 0px;
     text-align: center;
+  }
+
+  .stripe-button-el
+  {
+    width:250px!important;
+    float:right;
+    margin-right:200px;
+    background-size: 200% auto;
+    border-radius: 10px;
+  }
+
+  .stripe-button-el>span
+  {
+    background:none;
+    background-image: linear-gradient(to right, #1b1a1a 0%, #02AAB0 91%, #02AAB0  100%)!important;
   }
 
   .forminput {

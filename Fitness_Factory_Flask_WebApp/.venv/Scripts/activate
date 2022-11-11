@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\CA_Shastri\1. WebDevelopment\Fitness_Factory_Flask_WebApp\.venv"
+VIRTUAL_ENV="D:\CA_Shastri\1. WebDevelopment\WebDev_Git\B9IS109-Web-Development-for-Information-Systems-\Fitness_Factory_Flask_WebApp\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

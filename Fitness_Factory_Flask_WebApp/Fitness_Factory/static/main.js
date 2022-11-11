@@ -1100,6 +1100,7 @@ else {
 /**************************************** document.ready function ******************************************/
 
 $(document).ready(function () {
+
     $('.navLinks>li').on('click', function () {
         $('li').removeClass('active');
         $(this).toggleClass('active');
@@ -1130,7 +1131,145 @@ $(document).ready(function () {
         products_list = JSON.parse(localStorage.getItem("json"));
         GetProductHtml(products_list);
     }
+
+
+    $(".cartmsg").hide();
+    //cartqstring = "";
+    cartvalue=[];
+    cartval=[];
+    $("#cart").hide();
+    $(".modal").hide();
+    products_list = JSON.parse(localStorage.getItem("json"));
+    cartitemshtml = "";
+    final_rating = 0;
+    actual_rating = 0;
+    cartitemexists=false;
+    /*updated cart reference from local storage*/
+    if(localStorage.getItem("cartitems")) {
+      product_name = "";
+      product_price = "";
+      totalprice = 0;  
+      cartval =  JSON.parse(localStorage.getItem("cartitems"));
+      $("#cartcount").text(cartval.length);
+
+      for(var i = 0; i < cartval.length; i++){
+        product_name = products_list.filter(function (data) {
+          return data.id == String(cartval[i].split("-")[0]);
+        })[0].name;
+
+        product_price = products_list.filter(function (data) {
+          return data.id == String(cartval[i].split("-")[0]);
+        })[0].price;
+
+        cartitemshtml += "<br/><div><span><img style='height:15px;width:15px' src='./Media/bin.png'></img></span><a id='productlink' href='#'>" + product_name + " (" + cartval[i].split("-")[1] + ")</a> <span class='price'> € " + parseInt(cartval[i].split("-")[1]) * parseInt(product_price.split('€')[1].trim()) + "</span></div><br/>";
+        totalprice += parseInt(cartval[i].split("-")[1]) * parseInt(product_price.split('€')[1].trim());
+      }
+
+      $("#cartitems").append(cartitemshtml);
+      $('.totalprice').html("<b>Total: € "+totalprice+"</b>");
+
+      /*cart reference from querystring*/
+      //var qs = document.location.href.split('?checkout=true')[1];        
+      /*var qs = localStorage.getItem("cartitems");
+      var parts = qs.split('&');
+      var arr = [];
+      itemslist = [];
+      qtylist = [];
+      product_name = "";
+      product_price = "";
+      totalprice = 0;        
+
+      $.each(parts, function () {
+        var val = this.split('=')[1];
+        arr.push(val);
+      }); //console.log(arr)
+
+      for (var i = 0; i < arr.slice(1).length; i++) {
+        itemslist.push(arr.slice(1)[i].split(':')[0]);
+        qtylist.push(arr.slice(1)[i].split(':')[1]);
+      }
+
+      $("#cartcount").text(itemslist.length);
+
+      for (var i = 0; i < itemslist.length; i++) {
+        product_name = products_list.filter(function (data) {
+          return data.id == String(itemslist[i]);
+        })[0].name;
+
+        product_price = products_list.filter(function (data) {
+          return data.id == String(itemslist[i]);
+        })[0].price;
+
+        cartitemshtml += "<br/><div><span><img style='height:15px;width:15px' src='./Media/bin.png'></img></span><a id='productlink' href='#'>" + product_name + " (" + qtylist[i] + ")</a> <span class='price'> € " + parseInt(qtylist[i]) * parseInt(product_price.split('€')[1].trim()) + "</span></div><br/>";
+        totalprice += parseInt(qtylist[i]) * parseInt(product_price.split('€')[1].trim());
+      }
+
+      $("#cartitems").append(cartitemshtml);
+      $('.totalprice').html("<b>Total: € "+totalprice+"</b>");*/
+    }
+
+    else {
+      $(".row").hide();
+      $(".cartmsg").show();
+    }
+
+    if(getUrlParameter("checkout") == "true") {
+      $("#cart").show();
+      $("#productdetail").hide();
+      $('li').removeClass('active');
+      $("#modal h2").text("Checkout")
+      $(".copy span").text("Items reserved successfully");
+    }
+
+    else {
+      GetProductDetailHtml();        
+    }
+
 });
+
+
+
+$(window).on("load", function () {
+    SetProductDetailCSS();
+    $('li').removeClass('active');
+  });
+
+
+  function AddtoCart() {
+    if(localStorage.getItem("cartitems")) {
+      cartvalue = localStorage.getItem("cartitems");
+      cartvalue.push(product_data[0].id + ":" + parseInt($("#productqty :selected").text())); 
+     /*
+      for (var i = 0; i < itemslist.length; i++) {
+        if(product_data[0].id==itemslist[i])
+        {
+          cartitemexists=true;
+          qtylist[i]=parseInt(qtylist[i])+parseInt($("#productqty :selected").text());
+        }
+      }
+
+      if(cartitemexists)
+      {
+        cartqstring="";
+        for (var i = 0; i < itemslist.length; i++) {
+          cartqstring += "&id=" + itemslist[i] + ":" + qtylist[i];
+        }
+      }
+
+      else{
+        cartqstring += "&id=" + product_data[0].id + ":" + parseInt($("#productqty :selected").text());
+      }*/        
+    }
+
+    else {
+      cartvalue=[];
+      cartvalue[0]=product_data[0].id + "-" + parseInt($("#productqty :selected").text());
+      /*cartqstring = "";
+      cartqstring += "&id=" + product_data[0].id + ":" + parseInt($("#productqty :selected").text());*/
+    }
+    localStorage.setItem("cartitems", JSON.stringify(cartvalue));
+    document.location.href = "./product.html?checkout=true";
+  }
 
 
 /**************************************** set css for product cards ****************************************/
@@ -1309,7 +1448,7 @@ function GetProductHtml(jsonarray) {
             ratinghtml = "<div id='rating' class='rating1star'><span class='tooltiptext'>" + actual_rating + " out of 5</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>";
         }
 
-        dynamichtml += "<li class='cards_item'><div class='card'><a href='./product.html?id=" + this.id + "'><div class='card_image'><img src='" + this.featuredimage + "'></div></a><div class='card_content'><h1 class='card_title'>" + this.name + "</h1> <div class='card_price'> <span> Price: " + this.price + "</span></div><br/>" + ratinghtml + "<br/> <div class='card_review'> <span>" + this.reviews.length + " Reviews </span> </div><br/><button onclick='Navigateproductdetails(" + this.id + ")'' id='view_product_detail' class='btn card_btn btn-grad'>More</button> </div></div></li>";
+        dynamichtml += "<li class='cards_item'><div class='card'><a href='/product?id=" + this.id + "'><div class='card_image'><img src='" + this.featuredimage + "'></div></a><div class='card_content'><h1 class='card_title'>" + this.name + "</h1> <div class='card_price'> <span> Price: " + this.price + "</span></div><br/>" + ratinghtml + "<br/> <div class='card_review'> <span>" + this.reviews.length + " Reviews </span> </div><br/><button onclick='Navigateproductdetails(" + this.id + ")'' id='view_product_detail' class='btn card_btn btn-grad'>More</button> </div></div></li>";
 
         //<button id='add_to_cart' class='btn card_btn btn-grad'>Add to Cart</button>
     });
@@ -1343,11 +1482,12 @@ function ToggleMenu() {
 /*********************************** function to navigate to home page *********************************/
 
 function NavigateHome() {
-    window.location.href = "./index.html";
+    window.location.href = "/";
 }
 
 /**************************** function to navigate to product details page ******************************/
 
 function Navigateproductdetails(itemid) {
-    window.location.href = "./product.html?id=" + itemid;
+    window.location.href = "/product?id=" + itemid;
 }
+
