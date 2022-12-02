@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\CA_Shastri\1. WebDevelopment\WebDev_Git\B9IS109-Web-Development-for-Information-Systems-\.venv
+set VIRTUAL_ENV=D:\B9IS109-Web-Development\B9IS109-Web-Development\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
