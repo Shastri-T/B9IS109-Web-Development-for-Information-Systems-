@@ -1154,15 +1154,15 @@ $(document).ready(function () {
 
       for(var i = 0; i < cartval.length; i++){
         product_name = products_list.filter(function (data) {
-          return data.id == String(cartval[i].split("-")[0]);
+          return data.id == String(cartval[i].split(":")[0]);
         })[0].name;
 
         product_price = products_list.filter(function (data) {
-          return data.id == String(cartval[i].split("-")[0]);
+          return data.id == String(cartval[i].split(":")[0]);
         })[0].price;
 
-        cartitemshtml += "<br/><div><span><img style='height:15px;width:15px' src='./Media/bin.png'></img></span><a id='productlink' href='#'>" + product_name + " (" + cartval[i].split("-")[1] + ")</a> <span class='price'> € " + parseInt(cartval[i].split("-")[1]) * parseInt(product_price.split('€')[1].trim()) + "</span></div><br/>";
-        totalprice += parseInt(cartval[i].split("-")[1]) * parseInt(product_price.split('€')[1].trim());
+        cartitemshtml += "<br/><div><span><img style='height:15px;width:15px' src='./static/bin.png'></img></span><a id='productlink' href='#'>" + product_name + " (" + cartval[i].split(":")[1] + ")</a> <span class='price'> € " + parseInt(cartval[i].split(":")[1]) * parseInt(product_price.split('€')[1].trim()) + "</span></div><br/>";
+        totalprice += parseInt(cartval[i].split(":")[1]) * parseInt(product_price.split('€')[1].trim());
       }
 
       $("#cartitems").append(cartitemshtml);
@@ -1211,6 +1211,7 @@ $(document).ready(function () {
     else {
       $(".row").hide();
       $(".cartmsg").show();
+      $(".stripe-button-el").hide();
     }
 
     if(getUrlParameter("checkout") == "true") {
@@ -1236,8 +1237,12 @@ $(window).on("load", function () {
 
 
   function AddtoCart() {
-    if(localStorage.getItem("cartitems")) {
-      cartvalue = localStorage.getItem("cartitems");
+    if(localStorage.getItem("cartitems")) {      
+      
+    for (var i = 0; i < JSON.parse(localStorage.getItem("cartitems")).length; i++) {
+        cartvalue.push(JSON.parse(localStorage.getItem("cartitems"))[i])
+    }
+      
       cartvalue.push(product_data[0].id + ":" + parseInt($("#productqty :selected").text())); 
      /*
       for (var i = 0; i < itemslist.length; i++) {
@@ -1261,14 +1266,18 @@ $(window).on("load", function () {
       }*/        
     }
 
-    else {
+    else{
       cartvalue=[];
-      cartvalue[0]=product_data[0].id + "-" + parseInt($("#productqty :selected").text());
+      cartvalue.push(product_data[0].id + ":" + parseInt($("#productqty :selected").text()));
+
+      //cartvalue[0]=product_data[0].id + ":" + parseInt($("#productqty :selected").text());
+
       /*cartqstring = "";
       cartqstring += "&id=" + product_data[0].id + ":" + parseInt($("#productqty :selected").text());*/
     }
+
     localStorage.setItem("cartitems", JSON.stringify(cartvalue));
-    document.location.href = "./product.html?checkout=true";
+    document.location.href = "./product?checkout=true";
   }
 
 
@@ -1344,22 +1353,22 @@ function GetProductDetailHtml(jsonarray) {
 
 
     if (product_data[0].features.length == 1) {
-        productimg += "<li class='product_card_desc'> <div style='display:flex;flex-direction:column;'><b><span>" + product_data[0].description + "</span></b><br/>" + ratinghtml + " </span> <br/> <b><span style='color:brown'>" + product_data[0].price + "<div style='float:left'> <div style='align-items:center'> <label id='lblqty'>Quantity</label> <select id='productqty'></select> </div> <button id='product_add_to_cart' onclick='AddtoCart()' class='btn card_btn btn-grad'>Add to Cart</button> </div> </span></b></div></li> ";
+        productimg += "<li class='product_card_desc'> <div style='display:flex;flex-direction:column;font-size:18px;'><b><span>" + product_data[0].description + "</span></b><br/>" + ratinghtml + " </span> <br/> <b><span style='color:brown;float:left;font-size:18px;'>" + product_data[0].price + "</span> <br/><div style='float:left'> <div style='align-items:center'> <label id='lblqty' style='font-size:18px;'>Quantity</label> <select id='productqty'></select> </div> <br/> <button id='product_add_to_cart' onclick='AddtoCart()' class='btn card_btn btn-grad' style='float:left'>Add to Cart</button> </div> </span></b></div></li> ";
     }
 
     else {
 
         for (var i = 0; i < product_data[0].features.length; i++) {
             if (i == 0) {
-                productimg += "<li class='product_card_desc'> <div style='display:flex;flex-direction:column;'><b><span>" + product_data[0].description + "</span></b><br/>" + ratinghtml + " </span> <br/> <b><span style='color:brown'>" + product_data[0].price + " <br/> <div style='align-items:center'><label id='lblqty'>Quantity &nbsp;</label> <select id='productqty'> </select> </div> <button id='product_add_to_cart' onclick='AddtoCart()' class='btn card_btn btn-grad'>Add to Cart</button> </span></b> <ul style='padding-left:15px'><br/>";
+                productimg += "<li class='product_card_desc'> <div style='display:flex;flex-direction:column;font-size:18px;'><b><span>" + product_data[0].description + "</span></b><br/>" + ratinghtml + " </span> <br/> <b><span style='color:brown;float:left;font-size:18px;'>" + product_data[0].price + "</span> <br/><div style='align-items:center'><label id='lblqty' style='font-size:18px;'>Quantity &nbsp;</label> <select id='productqty'> </select> </div> <br/> <button id='product_add_to_cart' onclick='AddtoCart()' class='btn card_btn btn-grad' style='float:left'>Add to Cart</button> </span></b> <ul style='padding-left:15px'><br/>";
             }
 
             if (i != 0 && i == product_data[0].features.length - 1) {
-                productimg += "<li><span>" + product_data[0].features[i].feature + "</span></li></ul></div></li>";
+                productimg += "<li><span style='float:left;font-size:18px'>" + product_data[0].features[i].feature + "</span></li></ul></div></li>";
             }
 
             if (i != 0 && i != product_data[0].features.length - 1) {
-                productimg += "<li><span>" + product_data[0].features[i].feature + "</span></li>";
+                productimg += "<li><span style='float:left;font-size:18px'>" + product_data[0].features[i].feature + "</span></li>";
             }
         }
     }

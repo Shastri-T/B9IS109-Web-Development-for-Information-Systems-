@@ -2,8 +2,8 @@
 
 <div>
 
-  <div id="productdetail" class="main">
-    <div class='breadcrum'> <span> <a class='breadcrumlinks' href='/'> Home </a> /&nbsp;</span> <span
+  <div id="productdetail" class="main" >
+    <div class='breadcrum' > <span> <a class='breadcrumlinks' href='/'> Home </a> /&nbsp;</span> <span
         id="categorylink"></span> <span id='product_name'> </span> </div>
     <ul id="product-card" class="cards">
     </ul>
@@ -28,7 +28,7 @@
 
 <div id="cart">
   <div class="main">
-    <div class='breadcrum'> <span> <a class='breadcrumlinks' href='./index.html'> Home </a> </span>
+    <div class='breadcrum'> <span> <a class='breadcrumlinks' href='./'> Home </a> </span>
       <span>&nbsp;/&nbsp;Checkout</span> <span id='product_name'> </span> </div>
     <ul id="product-card" class="cards">
     </ul>
@@ -39,11 +39,12 @@
   <div class="row">
     <div class="col-45">
       <div class="cartcontainer">
-        <h4><span style="float:left">Cart</span><br/>
-          <span class="price" style="color:black">
+        <h4><span style="float:left">Cart</span>
+          <span class="carticon" style="color:black">
             <i class="fa fa-shopping-cart"></i>
           </span>
         </h4>
+        <br/>
         <div id="cartitems"> </div>
         <hr>
         <p><span class="totalprice" style="color:black"><b></b></span></p>
@@ -109,16 +110,18 @@
   </div>
 
   <br/>
-    <!--<input type="submit" style="width:250px!important;float:right;margin-right:200px;" value="checkout" class="btn-grad">-->
+    <!--<input type="submit" style="width:250px!important;float:right;margin-right:200px;" value="checkout" class="btn-grad">
+    data-amount=totalprice()
+    -->
 
     <form action="/pay" method="POST">
       <script
         src="https://checkout.stripe.com/checkout.js"
         class="stripe-button"
         data-key="pk_test_51M2jAhEA7jhQIwhZZhgz7mIL4T03uZGJIHKvRmQV8aJWaRT1r30sgCwDLnEXTe3QFJ7o1zzgjaJmGncEmzpeHmFJ005VcTux22"
-        data-name="T-shirt"
-        data-description="Comfortable cotton t-shirt"
-        data-amount="500"
+        data-name="Irish Factory Factory"
+        data-description="payment checkout"  
+        data-amount="Pay"      
         data-currency="eur">
       </script>
     </form>
